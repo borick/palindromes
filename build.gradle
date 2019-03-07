@@ -1,0 +1,32 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "joda-time:joda-time:2.2"
+	compile 'io.reactivex:rxnetty-http:0.5.2-rc.3'
+    compile 'org.json:json:20160212'
+}
+
+jar {
+    baseName = 'gs-gradle'
+    version =  '0.1.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+task(palindrome, dependsOn: 'classes', type: JavaExec) {
+    main = 'palindrome.Palindrome'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+apply plugin: 'application'
+
+mainClassName = 'palindrome.PalindromeServer'
